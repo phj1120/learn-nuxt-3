@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-xl">
+  <div>
     <AppCard>
       <template #header>
         <div class="text-h5 text-weight-medium">{{ course?.title }}</div>
@@ -69,6 +69,27 @@
       <p class="q-mt-lg text-grey-8">
         {{ course?.content }}
       </p>
+      <q-separator class="q-mb-lg" />
+      <q-form class="q-gutter-y-md">
+        <q-btn
+          label="수강완료"
+          class="full-width"
+          color="green"
+          unelevated
+          :outline="completed ? false : true"
+          :icon="completed ? 'check' : undefined"
+          @click="completed = !completed"
+        />
+        <q-input
+          v-model="memo"
+          type="textarea"
+          outlined
+          dense
+          placeholder="메모를 작성해주세요."
+          rows="3"
+          autogrow
+        />
+      </q-form>
     </AppCard>
   </div>
 </template>
@@ -84,8 +105,13 @@ definePageMeta({
   // title: title.value, // 컴포넌트 내에 변수를 참조할 수 없음.
   customMeta: 'customMetaData',
   pageType: 'indexPage',
+  keepalive: true, // 동적으로 컴포넌트를 보여줄 때, 해당 컴포넌트의 상태 유지, 캐싱
+  alias: ['/lecture/:courseSlug'], // 추가로 접근 가능한 URL
 });
 console.log('route.meta.customMeta', route.meta.customMeta);
+
+const memo = ref('');
+const completed = ref(false);
 </script>
 
 <style scoped></style>

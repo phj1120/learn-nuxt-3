@@ -18,24 +18,28 @@
         </div>
       </template>
       <template #footer>
-        <q-btn
-          label="이전 강의"
-          color="primary"
-          unelevated
-          :to="prevCourse?.path"
-        />
-        <q-btn
-          label="쿼리 추가"
-          color="primary"
-          unelevated
-          :to="{ path: $route.path, query: { timestamp: Date.now() } }"
-        />
-        <q-btn
-          label="다음 강의"
-          color="primary"
-          unelevated
-          :to="nextCourse?.path"
-        />
+        <ClientOnly>
+          <q-btn
+            v-if="prevCourse"
+            label="이전 강의"
+            color="primary"
+            unelevated
+            :to="prevCourse?.path"
+          />
+          <q-btn
+            label="쿼리 추가"
+            color="primary"
+            unelevated
+            :to="{ path: $route.path, query: { timestamp: Date.now() } }"
+          />
+          <q-btn
+            v-if="nextCourse"
+            label="다음 강의"
+            color="primary"
+            unelevated
+            :to="nextCourse?.path"
+          />
+        </ClientOnly>
       </template>
       <div class="q-mb-md">
         <VideoPlayer :src="course?.video" />
@@ -74,10 +78,14 @@ const route = useRoute();
 const courseSlug = route.params.courseSlug as string;
 const { course, prevCourse, nextCourse } = useCourse(courseSlug);
 console.log('[courseSlug].vue setup hook');
-
+// const title = ref('');
 definePageMeta({
   key: (route) => route.fullPath,
+  // title: title.value, // 컴포넌트 내에 변수를 참조할 수 없음.
+  customMeta: 'customMetaData',
+  pageType: 'indexPage',
 });
+console.log('route.meta.customMeta', route.meta.customMeta);
 </script>
 
 <style scoped></style>

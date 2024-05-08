@@ -10,4 +10,8 @@ export default defineNuxtConfig({
   quasar: {
     /* */
   },
+  components: {
+    global: true,
+    dirs: ['~/components'],
+  },
 });

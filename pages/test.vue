@@ -12,12 +12,19 @@
     <div>
       <h5>selectedComponet</h5>
       <div>selected: {{ selected }}</div>
-      <input v-model="selected" type="radio" value="DynamicComponent1" />
-      <label for="DynamicComponent1">DynamicComponent1</label>
-      <input v-model="selected" type="radio" value="DynamicComponent2" />
+      <input v-model="selected" type="radio" value="Component1" />
+      <label for="Component1">DynamicComponent1</label>
+      <input v-model="selected" type="radio" value="Component2" />
       <label for="DynamicComponent2">DynamicComponent2</label>
     </div>
     <div>
+      <h5>{{ `dynamic-${selected}` }}</h5>
+      <component :is="`dynamic-${selected}`" v-if="selected" />
+      <h5>{{ `dynamic${selected}` }}</h5>
+      <component :is="`dynamic${selected}`" v-if="selected" />
+      <h5>{{ selectedComponentName }}</h5>
+      <component :is="selectedComponentName" v-if="selected" />
+      <h5>{{ selected }}</h5>
       <component :is="selected" v-if="selected" />
     </div>
   </div>
@@ -27,6 +34,9 @@
 const showModal = ref(false);
 const showComponet = ref(false);
 const selected = ref('');
+const selectedComponentName = computed(() => {
+  return `dynamic-${selected.value}`.toLocaleLowerCase();
+});
 </script>
 
 <style scoped>

@@ -10,61 +10,23 @@
     <button @click="showComponet = !showComponet">Show Component</button>
     <my-component v-if="showComponet" />
     <div>
-      <h5>MyComponent</h5>
-      <component :is="MyComponent" />
-      <h5>MyComponent2</h5>
-      <component :is="MyComponent2" />
       <h5>selectedComponet</h5>
       <div>selected: {{ selected }}</div>
-      <input
-        id="MyComponent"
-        v-model="selected"
-        name="selectedComponet"
-        type="radio"
-        value="MyComponent"
-      />
-      <label for="MyComponent">MyComponent</label>
-      <input
-        id="MyComponent2"
-        v-model="selected"
-        name="selectedComponet"
-        type="radio"
-        value="MyComponent2"
-      />
-      <label for="selectedComponet2">MyComponent2</label>
-      <component :is="selectedComponet" />
+      <input v-model="selected" type="radio" value="DynamicComponent1" />
+      <label for="DynamicComponent1">DynamicComponent1</label>
+      <input v-model="selected" type="radio" value="DynamicComponent2" />
+      <label for="DynamicComponent2">DynamicComponent2</label>
     </div>
     <div>
-      <h2>for Text</h2>
-      <div>
-        <component :is="'MyComponent'" />
-        <component :is="'MyComponent2'" />
-      </div>
-    </div>
-    <div>
-      <h2>for variable</h2>
-      <component :is="selected" />
+      <component :is="selected" v-if="selected" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { ConcreteComponent } from 'vue';
-import { MyComponent2 } from '#components';
-
 const showModal = ref(false);
 const showComponet = ref(false);
 const selected = ref('');
-const selectedComponet: Ref<string | ConcreteComponent> = ref('');
-
-watch(
-  () => selected.value,
-  (selected) => {
-    selectedComponet.value = resolveComponent(selected);
-  },
-);
-
-const MyComponent = resolveComponent('MyComponent');
 </script>
 
 <style scoped>

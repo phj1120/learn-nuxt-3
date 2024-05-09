@@ -1,5 +1,5 @@
 <template>
-  <div>MyComponent2</div>
+  <h4>This is DynamicComponent2</h4>
 </template>
 
 <script setup lang="ts"></script>

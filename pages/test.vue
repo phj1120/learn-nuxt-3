@@ -34,6 +34,17 @@
       <label for="selectedComponet2">MyComponent2</label>
       <component :is="selectedComponet" />
     </div>
+    <div>
+      <h2>for Text</h2>
+      <div>
+        <component :is="'MyComponent'" />
+        <component :is="'MyComponent2'" />
+      </div>
+    </div>
+    <div>
+      <h2>for variable</h2>
+      <component :is="selected" />
+    </div>
   </div>
 </template>
 
